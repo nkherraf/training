@@ -1,0 +1,143 @@
+  #bod {
+    display:block;
+    margin-top:8vmin;
+    margin-left:auto;
+    margin-right:auto;
+    width:92vmin;
+  }
+  
+  
+  #plato {
+    display:inline-grid;
+    height: 80vmin;
+    width:80vmin;
+    border:solid black 1vmin;
+    position:relative;
+    left:0.25vmin;
+  }
+  
+  #pieceg {
+    float:left;
+    height:80vmin;
+    width:5vmin;
+  }
+  
+  #pieced {
+    float:right;
+    height:80vmin;
+    width:5vmin;
+  }
+  
+  #tp {
+    display:block;
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    top:1vmin;
+  }
+  #replay {
+    display:block;
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    top:1.5vmin;
+  }
+
+  .ligne {
+    height:10vmin;
+    width:80vmin;
+    display:inline-flex;
+  }
+  
+  .case_mangee {
+    height:5vmin;
+    width:5vmin;
+    position:relative;
+    left:0;
+  }
+  
+  .case {
+    height:10vmin;
+    width:10vmin;
+  
+  }
+  
+  .n {
+    background-color: #a0522d;
+  }
+  
+  .xtb {
+    background-image:url("pieces/tourb.png");
+    background-size:contain;
+  }
+  
+  .xkb {
+    background-image:url("pieces/kingb.png");  
+    background-size:contain;
+  }
+  
+  .xqb {
+    background-image:url("pieces/queenb.png");  
+    background-size:contain;
+  }
+  
+  .xcb {
+    background-image:url("pieces/cavb.png");  
+    background-size:contain;
+  }
+  
+  .xfb {
+    background-image:url("pieces/foub.png");  
+    background-size:contain;
+  }
+  
+  .xpb {
+    background-image:url("pieces/pionb.png");  
+    background-size:contain;
+  }
+  
+  .xqw {
+    background-image:url("pieces/queenw.png");  
+    background-size:contain;
+  }
+  
+  .xkw {
+    background-image:url("pieces/kingw.png");  
+    background-size:contain;
+  }
+  
+  .xcw {
+    background-image:url("pieces/cavw.png");  
+    background-size:contain;
+  }
+  
+  .xfw {
+    background-image:url("pieces/fouw.png");  
+    background-size:contain;
+  }
+  
+  .xpw {
+    background-image:url("pieces/pionw.png");  
+    background-size:contain;
+  }
+  
+  .xtw {
+    background-image:url("pieces/tourw.png");
+    background-size:contain;
+  }
+  
+  .chosen {
+    border:solid purple 0.5vmin;
+    box-sizing: border-box;
+  }
+  .swal-modal {
+    width:85vmin;
+  }
+  .swal-overlay {
+    background-color: rgba(0, 0, 0, 0.45);;
+  }
+  
+  .disp {
+    border:solid lime 0.5vmin;
+    box-sizing: border-box;
+}

@@ -1,0 +1,1357 @@
+<!DOCTYPE HTML>
+
+<html>
+
+    <head>
+      <title>Echec</title>
+      <meta charset="utf-8" />
+      <link rel="stylesheet" href="style-echec.css" />
+    </head>
+
+    <body>
+        
+        <section id=bod>
+        
+        <div id=pieceg ></div>
+        <div id=pieced ></div>
+        <section id="plato"></section>
+        <button id="tp">Revenir sur le dernier move</button>
+        <button id="replay">Rejouer une partie</button>
+        
+        </section>
+        
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
+        <script language="JavaScript">
+        
+          var plato=document.getElementById("plato");
+          
+          function Case(a,b) {
+            let g= document.getElementById(a+String(b));
+            return g;
+          }
+          
+          function addClass(a,b,c) {
+            let y= Case(a,b);
+            let h= y.getAttribute('class');
+            let m= y.setAttribute('class',h+" "+c);
+            return m;
+          }
+          
+          function addClassWithId(b,c) {
+            let y= document.getElementById(b);
+            let h= y.getAttribute('class');
+            let m= y.setAttribute('class',h+" "+c);
+            return m;
+          }
+          
+          function rmClasseWithId(a,b) {
+            let d= document.getElementById(a);
+            let p= d.getAttribute('class');
+            let j= p.lastIndexOf(b);
+            let g= p.substring(0,j);
+            let f= d.setAttribute('class',g);
+            return f;
+          }
+          
+          function classe(a,b) {
+            let d= Case(a,b);
+            let f= d.getAttribute('class');
+            return f;
+          }
+          
+          function classeId(a) {
+            let d= document.getElementById(a);
+            let f= d.getAttribute('class');
+            return f;
+          }
+          
+          function srcAllClass(a) {
+            let w=-1;
+            let r;
+            for(let i=97;i<=104;i++) {
+              for(let k=1;k<=8;k++) {
+                
+                r=classe(String.fromCharCode(i),k).lastIndexOf(a);
+                if(r!=-1) {
+                  w=r;
+                }
+                
+              }
+            }
+            return w;
+          }
+          
+          function pieceWithId(a) {
+            let p= classeId(a);
+            let j= p.lastIndexOf("x");
+            let g;
+            if(j!=-1) {
+              g=p.substr(j,3);
+            } else {
+              g=j;
+            }
+            return g;
+          }
+          
+          function typePieceId(a) {
+            let y= document.getElementById(a);
+            let p= y.getAttribute('class');
+            let j= p.lastIndexOf("x");
+            let g= p.substr(j+1,1);
+            return g;
+          }
+          
+          function rmPieceId(a) {
+            let p= classeId(a);
+            let j= p.lastIndexOf(" x");
+            if(j!=-1) {
+              let g= p.substring(0,j);
+              document.getElementById(a).setAttribute('class',g);
+            }
+          }
+          
+          function colorId(a) {
+            let p= classeId(a);
+            let j= p.lastIndexOf("x");
+            let g= p.substr(j+2,1);
+            return g;
+          }
+          
+          // PION
+          
+          
+          function casePion(idchose,col) {
+            let cases=[""];
+            if(col=="w" && idchose[0]!="a") {
+              let a=idchose.charCodeAt(0)-1;
+              let b=String.fromCharCode(a)+idchose[1];
+              let c=document.getElementById(b);
+              if(pieceWithId(b)==-1) {
+                  cases.push(c.getAttribute('id'));
+              }
+              if(idchose[1]!=1) {
+                let d= Number(idchose[1])-1;
+                let f=String.fromCharCode(a)+String(d);
+                let diagl=document.getElementById(f);
+                if(diagl.getAttribute('class')!="case" && diagl.getAttribute('class')!="case n") {
+                  cases.push(diagl.getAttribute('id'));
+                }
+              }
+              if( idchose[1]!=8) {
+                let e= Number(idchose[1])+1;
+                let g=String.fromCharCode(a)+String(e);
+                let diagr=document.getElementById(g);               
+                if(diagr.getAttribute('class')!="case" && diagr.getAttribute('class')!="case n") {
+                  cases.push(diagr.getAttribute('id'));
+                }
+              }
+              if(idchose[0]=="g") {
+                let h=idchose.charCodeAt(0)-2;
+                let i=String.fromCharCode(h)+idchose[1];
+                let j=document.getElementById(i);
+                if(pieceWithId(i)==-1) {
+                  cases.push(j.getAttribute('id'));
+                }
+              }
+            }
+            if(col=="b" && idchose[0]!="h") {
+              let a=idchose.charCodeAt(0)+1;
+              let b=String.fromCharCode(a)+idchose[1];
+              let c=document.getElementById(b);
+              if(pieceWithId(b)==-1) {
+                  cases.push(c.getAttribute('id'));
+              }
+              if(idchose[1]!=1) {
+                let d= Number(idchose[1])-1;
+                let f=String.fromCharCode(a)+String(d);
+                let diagl=document.getElementById(f);
+                if(diagl.getAttribute('class')!="case" && diagl.getAttribute('class')!="case n") {
+                  cases.push(diagl.getAttribute('id'));
+                }
+              }
+              if(idchose[1]!=8) {
+                let e= Number(idchose[1])+1;
+                let g=String.fromCharCode(a)+String(e);
+                let diagr=document.getElementById(g);               
+                if(diagr.getAttribute('class')!="case" && diagr.getAttribute('class')!="case n") {
+                  cases.push(diagr.getAttribute('id'));
+                }
+              }
+              if(idchose[0]=="b") {
+                let h=idchose.charCodeAt(0)+2;
+                let i=String.fromCharCode(h)+idchose[1];
+                let j=document.getElementById(i);
+                if(pieceWithId(i)==-1) {
+                  cases.push(j.getAttribute('id'));
+                }
+              }
+            }
+            return cases;
+          }
+          
+          //TOUR
+          
+          
+          function caseTour(idchose,col) {
+            let cases=[""];
+            let t,u,v,w;
+            var ligned="true";
+            var ligneg="true";
+            var ligneh="true";
+            var ligneb="true";
+            let d=Number(idchose[1])+1;
+            let g=Number(idchose[1])-1;
+            let h=idchose.charCodeAt(0)-1;
+            let b=idchose.charCodeAt(0)+1;
+           
+            while(ligned=="true" && d<=8) {
+              w=idchose[0]+String(d);
+              switch (true) {
+                
+                case(pieceWithId(w)==-1):
+                  cases.push(w);
+                  d++;
+                  break;
+                
+                case(colorId(w)!=col):
+                  cases.push(w);
+                  ligned="false";
+                  break;
+                  
+                case(colorId(w)==col):
+                  ligned="false";
+                  break;
+              }
+            }
+            
+            while(ligneg=="true" && g>=1) {
+              v=idchose[0]+String(g);
+              switch (true) {
+                
+                case(pieceWithId(v)==-1):
+                  cases.push(v);
+                  g--;
+                  break;
+                
+                case(colorId(v)!=col):
+                  cases.push(v);
+                  ligneg="false";
+                  break;
+                  
+                case(colorId(v)==col):
+                  ligneg="false";
+                  break;
+              }
+            }
+            while(ligneh=="true" && h>=97) {
+              t=String.fromCharCode(h)+idchose[1];
+              switch (true) {
+                
+                case(pieceWithId(t)==-1):
+                  cases.push(t);
+                  h--;
+                  break;
+                
+                case(colorId(t)!=col):
+                  cases.push(t);
+                  ligneh="false";
+                  break;
+                  
+                case(colorId(t)==col):
+                  ligneh="false";
+                  break;
+              }
+            }
+            while(ligneb=="true" && b<=104) {
+              u=String.fromCharCode(b)+idchose[1];
+              switch (true) {
+                
+                case(pieceWithId(u)==-1):
+                  cases.push(u);
+                  b=b+1;
+                  break;
+                
+                case(colorId(u)!=col):
+                  cases.push(u);
+                  ligneb="false";
+                  break;
+                  
+                case(colorId(u)==col):
+                  ligneb="false";
+                  break;
+              }
+            }
+            return cases;
+          }
+          
+          // FOU
+          
+          function caseFou(idchose,col) {
+            let cases=[""];
+            let t,u,v,w;
+            var diaghd="true";
+            var diaghg="true";
+            var diagbd="true";
+            var diagbg="true";
+            let d=Number(idchose[1])+1;
+            let bd=Number(idchose[1])+1;
+            let g=Number(idchose[1])-1;
+            let hg=Number(idchose[1])-1;
+            let h=idchose.charCodeAt(0)-1;
+            let hd=idchose.charCodeAt(0)-1;
+            let b=idchose.charCodeAt(0)+1;
+            let bg=idchose.charCodeAt(0)+1;
+           
+            while(diaghd=="true" && d<=8 && hd>=97) {
+              w=String.fromCharCode(hd)+String(d);
+              switch (true) {
+                
+                case(pieceWithId(w)==-1):
+                  cases.push(w);
+                  d++;
+                  hd--;
+                  break;
+                
+                case(colorId(w)!=col):
+                  cases.push(w);
+                  diaghd="false";
+                  break;
+                  
+                case(colorId(w)==col):
+                  diaghd="false";
+                  break;
+              }
+            }
+            
+            while(diaghg=="true" && hg>=1 && h>=97) {
+              v=String.fromCharCode(h)+String(hg);
+              switch (true) {
+                
+                case(pieceWithId(v)==-1):
+                  cases.push(v);
+                  hg--;
+                  h--;
+                  break;
+                
+                case(colorId(v)!=col):
+                  cases.push(v);
+                  diaghg="false";
+                  break;
+                  
+                case(colorId(v)==col):
+                  diaghg="false";
+                  break;
+              }
+            }
+            while(diagbg=="true" && g>=1 && bg<=104) {
+              t=String.fromCharCode(bg)+String(g);
+              switch (true) {
+                
+                case(pieceWithId(t)==-1):
+                  cases.push(t);
+                  bg++;
+                  g--;
+                  break;
+                
+                case(colorId(t)!=col):
+                  cases.push(t);
+                  diagbg="false";
+                  break;
+                  
+                case(colorId(t)==col):
+                  diagbg="false";
+                  break;
+              }
+            }
+            while(diagbd=="true" && bd<=8 && b<=104) {
+              u=String.fromCharCode(b)+String(bd);
+              switch (true) {
+                
+                case(pieceWithId(u)==-1):
+                  cases.push(u);
+                  b++;
+                  bd++;
+                  break;
+                
+                case(colorId(u)!=col):
+                  cases.push(u);
+                  diagbd="false";
+                  break;
+                  
+                case(colorId(u)==col):
+                  diagbd="false";
+                  break;
+              }
+            }
+            return cases;
+          }
+          
+          // REINE
+          
+          function caseReine(idchose,col) {
+            let cases=[""];
+            let ligne=caseTour(idchose,col);
+            let diag=caseFou(idchose,col);
+            for(let o=1;o<ligne.length;o++) {
+              cases.push(ligne[o]);
+            }
+            for(let p=1;p<diag.length;p++) {
+              cases.push(diag[p]);
+            }
+            return cases;
+          }
+          
+          // CAVALIER
+          
+          function caseCav(idchose,col) {
+            let cas=[""];
+            let l=idchose.charCodeAt(0);
+            let c=Number(idchose[1]);
+            let h3=l-2;
+            let g3=c-2;
+            let d3=c+2;
+            let b3=l+2;
+            let h1=l-1;
+            let g1=c-1;
+            let d1=c+1;
+            let b1=l+1;
+            
+            case2=[String.fromCharCode(h3),g1,
+            String.fromCharCode(h1),g3,
+            String.fromCharCode(h3),d1,
+            String.fromCharCode(h1),d3,
+            String.fromCharCode(b3),g1,
+            String.fromCharCode(b1),g3,
+            String.fromCharCode(b3),d1,
+            String.fromCharCode(b1),d3];
+            
+            
+            for(let i=0;i<case2.length/2;i++) {
+              a=case2[2*i];
+              b=case2[2*i+1];
+              if(a.charCodeAt(0)>=97 && a.charCodeAt(0)<=104) {
+                if(b>=1  && b<=8) {
+                  cas.push(a+String(b));
+                }
+              }
+            }
+            return cas;
+          }
+          
+          // ROI
+          
+          function caseKing(idchose,col) {
+            let cases=[""];
+            let l=idchose.charCodeAt(0);
+            let c=Number(idchose[1]);
+            let h=l-1;
+            let g=c-1;
+            let d=c+1;
+            let b=l+1;
+            let lb=l;
+            let cb=c;
+            let case3=[String.fromCharCode(h)+String(g),
+            String.fromCharCode(h)+String(d),
+            String.fromCharCode(h)+String(cb),
+            String.fromCharCode(b)+String(g),
+            String.fromCharCode(b)+String(d),
+            String.fromCharCode(b)+String(cb),
+            String.fromCharCode(lb)+String(g),
+            String.fromCharCode(lb)+String(d)];
+            
+            for(let i=0;i<case3.length;i++) {
+              a=case3[i];
+              if(a.charCodeAt(0)>=97 && Number(a[1])>=1  && Number(a[1])<=8 && a.charCodeAt(0)<=104) {
+                cases.push(a);
+              }
+            }
+            let roc1=c-2;
+            let roc2=c+2;
+            if(col=="w" && kwdep!="true" && pieceWithId(idchose[0]+String(c-1))==-1 && pieceWithId(idchose[0]+String(c-3))==-1 && twldep!="true") {
+              cases.push(idchose[0]+String(roc1));
+            }
+            if(col=="b" && kbdep!="true" && pieceWithId(idchose[0]+String(c-1))==-1 && pieceWithId(idchose[0]+String(c-3))==-1 && tbldep!="true") {
+              cases.push(idchose[0]+String(roc1));
+            }
+            if(col=="w" && kwdep!="true" && pieceWithId(idchose[0]+String(c+1))==-1 && twrdep!="true") {
+              cases.push(idchose[0]+String(roc2));
+            }
+            if(col=="b" && kbdep!="true" && pieceWithId(idchose[0]+String(c+1))==-1 && tbrdep!="true") {
+              cases.push(idchose[0]+String(roc2));
+            }
+        
+            
+            
+            return cases;
+          }
+          
+          //MangePion
+          
+          function mangePion(idchose,col) {
+            let cases=[""];
+            if(col=="w" && idchose[0]!="a") {
+              let a=idchose.charCodeAt(0)-1;
+              if(idchose[1]!=1) {
+                let d= Number(idchose[1])-1;
+                let f=String.fromCharCode(a)+String(d);
+                let diagl=document.getElementById(f);
+                if(diagl.getAttribute('class')!="case" && diagl.getAttribute('class')!="case n") {
+                  cases.push(diagl.getAttribute('id'));
+                }
+              }
+              if( idchose[1]!=8) {
+                let e= Number(idchose[1])+1;
+                let g=String.fromCharCode(a)+String(e);
+                let diagr=document.getElementById(g);               
+                if(diagr.getAttribute('class')!="case" && diagr.getAttribute('class')!="case n") {
+                  cases.push(diagr.getAttribute('id'));
+                }
+              }
+            }
+            if(col=="b" && idchose[0]!="h") {
+              let a=idchose.charCodeAt(0)+1;
+              if(idchose[1]!=1) {
+                let d= Number(idchose[1])-1;
+                let f=String.fromCharCode(a)+String(d);
+                let diagl=document.getElementById(f);
+                if(diagl.getAttribute('class')!="case" && diagl.getAttribute('class')!="case n") {
+                  cases.push(diagl.getAttribute('id'));
+                }
+              }
+              if(idchose[1]!=8) {
+                let e= Number(idchose[1])+1;
+                let g=String.fromCharCode(a)+String(e);
+                let diagr=document.getElementById(g);               
+                if(diagr.getAttribute('class')!="case" && diagr.getAttribute('class')!="case n") {
+                  cases.push(diagr.getAttribute('id'));
+                }
+              }
+            }
+            return cases;
+          }
+          
+          // ECHEC
+          
+          function check(col) {
+            let caseinvcol=[""];
+            let invcol;
+            let rep="false";
+            if(col=="w") {
+              invcol="b";
+            } else {
+              invcol="w";
+            }
+            
+            var z= "xk"+col;
+            var t2="xt"+invcol;
+            var c2="xc"+invcol;
+            var f2="xf"+invcol;
+            var p2="xp"+invcol;
+            var k2="xk"+invcol;
+            var q2="xq"+invcol;
+            var a, king;
+            for(let i=97;i<=104;i++) {
+              for(let j=1;j<=8;j++) {
+                switch(true) {
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==z):
+                    king=String.fromCharCode(i)+String(j);
+                    break;
+                  
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==t2):
+                    a=caseTour(String.fromCharCode(i)+String(j),invcol);
+                    for(let m=1;m<a.length;m++) {
+                      caseinvcol.push(a[m]);
+                    }
+                    break;
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==c2):
+                    a=caseCav(String.fromCharCode(i)+String(j),invcol);
+                    for(let m=1;m<a.length;m++) {
+                      caseinvcol.push(a[m]);
+                    }
+                    break;
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==f2):
+                    a=caseFou(String.fromCharCode(i)+String(j),invcol);
+                    for(let m=1;m<a.length;m++) {
+                      caseinvcol.push(a[m]);
+                    }
+                    break;
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==p2):
+                    a=mangePion(String.fromCharCode(i)+String(j),invcol);
+                    for(let m=1;m<a.length;m++) {
+                      caseinvcol.push(a[m]);
+                    }
+                    break;
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==q2):
+                    a=caseReine(String.fromCharCode(i)+String(j),invcol);
+                    for(let m=1;m<a.length;m++) {
+                      caseinvcol.push(a[m]);
+                    }
+                    break;
+                  case(pieceWithId(String.fromCharCode(i)+String(j))==k2):
+                    a=caseKing(String.fromCharCode(i)+String(j),invcol);
+                    for(let m=1;m<a.length;m++) {
+                      caseinvcol.push(a[m]);
+                    }
+                    break;
+                }
+              }
+            }
+            for(let y=1;y<caseinvcol.length;y++) {
+              if(caseinvcol[y]==king) {
+                rep="true";
+              }
+            }
+            return rep;
+          }
+            
+          // VÉRIF DES DÉP EN CAS D'ÉCHEC
+          
+          function checkdep(idchose,idarr,col) {
+            let rep="false";
+            let p,c;
+            p=pieceWithId(idchose);
+            if(classeId(idarr)!= "case" && classeId(idarr)!= "case n") {
+                c=classeId(idarr);
+                rmPieceId(idarr);
+                addClassWithId(idarr,pieceWithId(idchose));
+                rmPieceId(idchose);
+            } else {
+                c=classeId(idarr);
+                addClassWithId(idarr,pieceWithId(idchose));
+                rmPieceId(idchose);
+            }
+            let a=check(col);
+            if(a=="true") {
+              rep="true";
+            }
+            turnpastTest(c,p,idarr,idchose);
+            return rep;
+          }
+          
+          // ECHEC ET MAT
+          
+          function checkmate(col) {
+            let rep="true";
+            var t="xt"+col;
+            var c="xc"+col;
+            var f="xf"+col;
+            var p="xp"+col;
+            var k="xk"+col;
+            var q="xq"+col;
+            var a,b;
+            for(let i=97;i<=104;i++) {
+              for(let j=1;j<=8;j++) {
+                b=String.fromCharCode(i)+String(j);
+                switch(true) {
+                  case(pieceWithId(b)==t):
+                    a=caseTour(b,col);
+                    for(let m=1;m<a.length;m++) {
+                      if(colorId(a[m])!=colorId(b)) {
+                      if(checkdep(b,a[m],col)=="false") {
+                        rep="false";
+                      }
+                      }
+                    }
+                    break;
+                  case(pieceWithId(b)==c):
+                    a=caseCav(b,col);
+                    for(let m=1;m<a.length;m++) {
+                      if(colorId(a[m])!=colorId(b)) {
+                      if(checkdep(b,a[m],col)=="false") {
+                        rep="false";
+                      }
+                      }
+                    }
+                    break;
+                  case(pieceWithId(b)==f):
+                    a=caseFou(b,col);
+                    for(let m=1;m<a.length;m++) {
+                      if(colorId(a[m])!=colorId(b)) {
+                      if(checkdep(b,a[m],col)=="false") {
+                        rep="false";
+                      }
+                      }
+                    }
+                    break;
+                  case(pieceWithId(b)==p):
+                    a=casePion(b,col);
+                    for(let m=1;m<a.length;m++) {
+                      if(colorId(a[m])!=colorId(b)) {
+                      if(checkdep(b,a[m],col)=="false") {
+                        rep="false";
+                      }
+                      }
+                    }
+                    break;
+                  case(pieceWithId(b)==q):
+                    a=caseReine(b,col);
+                    for(let m=1;m<a.length;m++) {
+                      if(colorId(a[m])!=colorId(b)) {
+                      if(checkdep(b,a[m],col)=="false") {
+                        rep="false";
+                      }
+                      }
+                    }
+                    break;
+                  case(pieceWithId(b)==k):
+                    a=caseKing(b,col);
+                    for(let m=1;m<a.length;m++) {
+                      if(colorId(a[m])!=colorId(b)) {
+                      if(checkdep(b,a[m],col)=="false") {
+                        rep="false";
+                      }
+                    }
+                    }
+                    break;
+                }
+              }
+            }
+            return rep;
+          }
+          
+          // ROC
+          
+          function roc(idchose,idarr,col) {
+            let rep="false";
+            let l1=idchose[0];
+            let c1=Number(idchose[1]);
+            let c2=Number(idarr[1]);
+            if(typePieceId(idchose)=="k") {
+            if(col=="w") {
+              
+              if((c2-c1)<0) {
+                
+                if(kwdep!="true" && twldep!="true" && idarr==(l1+String(Number(idchose[1])-2)) && checkdep(idchose,idarr,col)!="true" && classeId(l1+String(Number(idchose[1])-1)).lastIndexOf("x")==-1 && classeId(l1+String(Number(idchose[1])-3)).lastIndexOf("x")==-1 && classeId(l1+String(Number(idchose[1])-2)).lastIndexOf("x")==-1) {
+                  rep="true";
+                }
+                
+              } else {
+                
+                if(kwdep!="true" && twrdep!="true" && idarr==(idchose[0]+String(Number(idchose[1])+2)) && checkdep(idchose,idarr,col)!="true" && classeId(l1+String(Number(idchose[1])+1)).lastIndexOf("x")==-1 && classeId(l1+String(Number(idchose[1])+2)).lastIndexOf("x")==-1) {
+                  rep="true";
+                }
+              } 
+            } else {
+              if((c2-c1)<0) {
+                
+                if(kbdep!="true" && tbldep!="true" && idarr==(idchose[0]+String(Number(idchose[1])-2)) && checkdep(idchose,idarr,col)!="true" && classeId(l1+String(Number(idchose[1])-1)).lastIndexOf("x")==-1 && classeId(l1+String(Number(idchose[1])-3)).lastIndexOf("x")==-1 && classeId(l1+String(Number(idchose[1])-2)).lastIndexOf("x")==-1) {
+                  rep="true";
+                }
+                
+              } else {
+                
+                if(kbdep!="true" && tbrdep!="true" && idarr==(idchose[0]+String(Number(idchose[1])+2)) && checkdep(idchose,idarr,col)!="true" && classeId(l1+String(Number(idchose[1])+1)).lastIndexOf("x")==-1 && classeId(l1+String(Number(idchose[1])+2)).lastIndexOf("x")==-1) {
+                  rep="true";
+                }
+              } 
+            }
+            }
+            return rep;
+          }
+          
+          
+          // CASES DISPO
+          
+          function casesDispo(idc) {
+            let disp=[""];
+             switch(true) {
+                
+                case(typePieceId(idc)=="p"):
+                  let poss=casePion(idc,colorId(idc));
+                  for(let i=1;i<poss.length;i++) {
+                    if(colorId(poss[i])!=colorId(idc)) {
+                      if(checkdep(idc,poss[i],colorId(idc))=="false") {
+                        disp.push(poss[i]);
+                      }
+                    }
+                  }
+                  break;
+                
+                case(typePieceId(idc)=="t"): 
+                  let poss2=caseTour(idc,colorId(idc)); 
+                  for(let i=1;i<poss2.length;i++) {
+                    if(colorId(poss2[i])!=colorId(idc)) {
+                      if(checkdep(idc,poss2[i],colorId(idc))=="false") {
+                        disp.push(poss2[i]);
+                      }
+                    }
+                  }
+                  break;
+                  
+                case(typePieceId(idc)=="f"): 
+                  let poss3=caseFou(idc,colorId(idc)); 
+                  for(let i=1;i<poss3.length;i++) {
+                    if(colorId(poss3[i])!=colorId(idc)) {
+                      if(checkdep(idc,poss3[i],colorId(idc))=="false") {
+                        disp.push(poss3[i]);
+                      }
+                    }
+                  }
+                  break;
+                  
+                case(typePieceId(idc)=="c"):
+                  let poss5=caseCav(idc,colorId(idc));
+                  for(let i=1;i<poss5.length;i++) {
+                    if(colorId(poss5[i])!=colorId(idc)) {
+                      if(checkdep(idc,poss5[i],colorId(idc))=="false") {
+                        disp.push(poss5[i]);
+                      }
+                    }
+                  }
+                  break;
+                  
+                case(typePieceId(idc)=="q"):
+                  let poss4=caseReine(idc,colorId(idc)); 
+                  for(let i=1;i<poss4.length;i++) {
+                    if(colorId(poss4[i])!=colorId(idc)) {
+                      if(checkdep(idc,poss4[i],colorId(idc))=="false") {
+                        disp.push(poss4[i]);
+                      }
+                    }
+                  }
+                  break;
+                  
+                case(typePieceId(idc)=="k"):
+                  let poss6=caseKing(idc,colorId(idc)); 
+                  for(let i=1;i<poss6.length;i++) {
+                    if(colorId(poss6[i])!=colorId(idc)) {
+                      if(checkdep(idc,poss6[i],colorId(idc))=="false") {
+                        disp.push(poss6[i]);
+                      }
+                    }
+                  }
+                  break;
+               
+              } 
+            return disp;
+          } 
+          
+          
+          //DEPLACEMENT VERIF
+          
+          function dep(a,idarr) {
+            let response="false";
+            let dispo=casesDispo(a);
+            for(let i=1;i<dispo.length;i++) {
+              if(dispo[i]==idarr) {
+                response="true";
+              }
+            }
+            return response;
+          } 
+          
+          //RETOUR EN ARRIERE
+          
+          function turnpast() {
+            var a,b,c,d;
+            a=last_class.length;
+            b=lastPiece.length;
+            c=last_idarr.length;
+            d=last_idchose.length;
+            addClassWithId(last_idchose[d-1],lastPiece[b-1]);
+            rmPieceId(last_idarr[c-1]);
+            document.getElementById(last_idarr[c-1]).setAttribute('class',last_class[a-1]);
+            if(last_class[a-1]!= "case" && last_class[a-1]!= "case n") {
+              var col=colorId(last_idarr[c-1]);
+              var e,f;
+              let i=0;
+              while(f!="case_mangee") {
+               i++;
+               e=document.getElementById('pm'+col+i);
+               f=e.getAttribute('class');
+              }
+              var g=i-1;
+              document.getElementById('pm'+col+g).setAttribute('class','case_mangee');
+            }
+            rm1=last_class.splice(a-1);
+            rm2=lastPiece.splice(b-1);
+            rm3=last_idarr.splice(c-1);
+            rm4=last_idchose.splice(d-1);
+            
+          }
+          
+          function turnpastTest(classarr,piece,idarr,idchose) {
+            addClassWithId(idchose,piece);
+            rmPieceId(idarr);
+            document.getElementById(idarr).setAttribute('class',classarr);
+          }
+          
+          //CHANGER COULEUR
+          
+          function changeCol(col) {
+            if(col=="w") {
+              last_col="w";
+            } else {
+              last_col="b";
+            }
+          }
+          
+          //RESUME DES PIECES PERDUES
+          
+          function addPieceMangee(id,col) {
+            var a,b,c;
+            let i=0;
+            a=pieceWithId(id);
+            while(c!="case_mangee") {
+             i++;
+             c=classeId('pm'+col+i);
+            }
+            addClassWithId('pm'+col+i,a);
+          }
+          
+          // REPLAY
+          
+          function replay() {
+            var a;
+
+            for(let i=97;i<=104;i++) {
+              for(let k=1;k<=8;k++) {
+                a=String.fromCharCode(i)+String(k);
+                b=classeId(a);
+                if(b!="case" && b!="case n") {
+                  rmPieceId(a);
+                }
+              }
+            }
+            for (let b=1;b<=8;b++) {
+              addClass("a",b,pieces[b-1]+"b");
+            }
+            for (let b=8;b>=1;b--) {
+              addClass("h",b,pieces[b-1]+"w");
+            }
+            for (let b=1;b<=8;b++) {
+              addClass("b",b,"xpb");
+              addClass("g",b,"xpw");
+            }
+            for (let r=1;r<=16;r++) {
+              document.getElementById('pmw'+String(r)).setAttribute('class','case_mangee');
+              document.getElementById('pmb'+String(r)).setAttribute('class','case_mangee');
+            }
+          }
+          
+          
+          // Initialisation du plateau de jeu
+          
+          for(let i=97;i<=104;i++) {
+            
+            var l=document.createElement('section');
+            l.setAttribute("class","ligne");
+            l.setAttribute("id",String.fromCharCode(i));
+            plato.appendChild(l);
+            for(let k=1;k<=8;k++) {
+              var c=document.createElement('div');
+              c.setAttribute("class","case");
+              c.setAttribute("id",String.fromCharCode(i)+String(k));
+              if(Math.round(i/2)!=i/2) {
+                if(Math.round(k/2)==k/2) {
+                  c.setAttribute("class","case n");
+                }
+              } else {
+                if(Math.round(k/2)!=k/2) {
+                  c.setAttribute("class","case n");
+                }
+              }
+              l.appendChild(c);
+            }
+            
+          }
+          var pieces = ["xt","xc","xf","xq","xk","xf","xc","xt"];
+          for (let b=1;b<=8;b++) {
+            addClass("a",b,pieces[b-1]+"b");
+          }
+          for (let b=8;b>=1;b--) {
+            addClass("h",b,pieces[b-1]+"w");
+          }
+          for (let b=1;b<=8;b++) {
+            addClass("b",b,"xpb");
+            addClass("g",b,"xpw");
+          } 
+          
+          var pieceg=document.getElementById('pieceg');
+          var pieced=document.getElementById('pieced');
+          
+          for(let i=1;i<=16;i++) {
+            var s=document.createElement('section');
+            s.setAttribute("class","case_mangee");
+            s.setAttribute("id","pmw" + String(i));
+            pieceg.appendChild(s);
+          }
+          for(let i=1;i<=16;i++) {
+            var cf=document.createElement('section');
+            cf.setAttribute("class","case_mangee");
+            cf.setAttribute("id","pmb" + String(i));
+            pieced.appendChild(cf);
+          }
+          
+        // Fin de l'initialisation
+        
+        
+        // Début du jeu
+        
+          //Choix pièce
+          var last_col="b";
+          var game="";
+          var last_class=[""];
+          var last_idchose=[""];
+          var last_idarr=[""];
+          var lastPiece=[""];
+          var depl="";
+          var kwdep,kbdep,twldep,twrdep,tbldep,tbrdep,dispo;
+            for(let i=97;i<=104;i++) {
+              for(let k=1;k<=8;k++) {
+                
+                  Case(String.fromCharCode(i),k).onclick = (e) => {
+                    var arr=e.target;
+                    var id = arr.getAttribute('id');
+                    var cla = arr.getAttribute('class');
+                    var idchose="";
+                    
+                    for(let h=97;h<=104;h++) {
+                      for(let b=1;b<=8;b++) {
+                            
+                          if(classe(String.fromCharCode(h),b).lastIndexOf("chosen")!=-1) {
+                              idchose=Case(String.fromCharCode(h),b).getAttribute('id');
+                          }
+                      }
+                    }
+                    
+                    if(game!="finie") {
+
+                    switch(true) {
+                      
+                      case(idchose=="" && last_col!=colorId(id) && pieceWithId(id)!=-1) :
+                        dispo=casesDispo(id);
+                        for(let i=1;i<dispo.length;i++) {
+                          addClassWithId(dispo[i],"disp");
+                        }
+                        addClass(String.fromCharCode(i),k,"chosen");
+                        break;
+                        
+                      case((cla.lastIndexOf("chosen")!=-1) || (colorId(id)==colorId(idchose))) :
+                            rmClasseWithId(idchose," chosen");
+                            for(let i=1;i<dispo.length;i++) {
+                              rmClasseWithId(dispo[i]," disp");
+                            }
+                            break;
+                            
+                      case(checkdep(idchose,id,colorId(idchose))=="true"):
+                        alert('Vous êtes en échec !');
+                        break;
+                        
+                      case(roc(idchose,id,colorId(idchose))=="true"):
+                        var tr,nexto;
+                        for(let i=1;i<dispo.length;i++) {
+                          rmClasseWithId(dispo[i]," disp");
+                        }
+                        addClassWithId(id,pieceWithId(idchose));
+                        rmPieceId(idchose);
+                        if((Number(id[1])-Number(idchose[1]))<0) {
+                          tr=idchose[0]+String(1);
+                          nexto=id[0]+String(Number(id[1])+1);
+                          addClassWithId(nexto,pieceWithId(tr));
+                          rmPieceId(tr);
+                        } else {
+                          tr=idchose[0]+String(8);
+                          nexto=id[0]+String(Number(id[1])-1);
+                          addClassWithId(nexto,pieceWithId(tr));
+                          rmPieceId(tr);
+                        }
+                        if(colorId(id)=="w") {
+                          kwdep="true";
+                        } else {
+                          kbdep="true";
+                        }
+                        last_roc=1;
+                        last_tr=tr;
+                        last_col=colorId(id);
+                        last_class=[""];
+                        last_idchose=[""];
+                        last_idarr=[""];
+                        lastPiece=[""];
+                        break;
+                        
+                      case((dep(idchose,id)=="false")) :
+                            for(let i=1;i<dispo.length;i++) {
+                              rmClasseWithId(dispo[i]," disp");
+                            }
+                            break;
+                            
+                            
+                      case(dep(idchose,id)=="true" && typePieceId(idchose)=="p" && id[0]=="a" && colorId(idchose)=="w"):
+                        
+                        for(let i=1;i<dispo.length;i++) {
+                              rmClasseWithId(dispo[i]," disp");
+                          }
+                        if(pieceWithId(id)!=-1){
+                          addPieceMangee(id,colorId(id));
+                          rmPieceId(id);
+                        }
+                          rmPieceId(idchose);
+                          swal({
+                            title:"Vous êtes arrivé au bout du chemin !",
+                            text:"Il est temps de choisir... Attention, plus de retour possible après !",
+                            buttons: {
+                                cancel: true,
+                                reine: true,
+                                tour: true,
+                                fou: true,
+                                cavalier: true,
+                              },
+                        })
+                        .then((value) => {
+                            switch (value) {
+                                case "reine":
+                                  addClassWithId(id,"xqw");
+                                  changeCol("w");
+                                  break;
+ 
+                                case "tour":
+                                  addClassWithId(id,"xtw");
+                                  changeCol("w");
+                                  break;
+                                  
+                                case "fou":
+                                  addClassWithId(id,"xfw");
+                                  changeCol("w");
+                                  break;
+                                  
+                                case "cavalier":
+                                  addClassWithId(id,"xcw");
+                                  changeCol("w");
+                                  break;
+ 
+                                default:
+                                  addClassWithId(idchose,"xpw");
+                                  break;
+                            }
+                        });
+                        
+                              if(check("b")=="true") {
+                                if(checkmate("b")=="true") {
+                                  if(colorId(id)=="w") {
+                                    alert('Echec et mat ! Les blancs ont gagné !');
+                                  } else {
+                                    alert('Echec et mat ! Les noirs ont gagné !');
+                                  }
+                                  game="finie";
+                                } else {
+                                    alert("Echec !");
+                                }
+                              }
+                          last_class=[""];
+                          last_idchose=[""];
+                          last_idarr=[""];
+                          lastPiece=[""];
+                          break;
+                          
+                      case(dep(idchose,id)=="true" && typePieceId(idchose)=="p" && id[0]=="h" && colorId(idchose)=="b"):
+                        for(let i=1;i<dispo.length;i++) {
+                              rmClasseWithId(dispo[i]," disp");
+                          }
+                        
+                        if(pieceWithId(id)!=-1){
+                          addPieceMangee(id,colorId(id));
+                          rmPieceId(id);
+                          }
+                          rmPieceId(idchose);
+                          swal({
+                            title:"Vous êtes arrivé au bout du chemin !",
+                            text:"Il est temps de choisir...",
+                              buttons: {
+                                cancel: true,
+                                reine: true,
+                                tour: true,
+                                fou: true,
+                                cavalier: true,
+                              },
+                        })
+                        .then((value) => {
+                            switch (value) {
+                                case "reine":
+                                  addClassWithId(id,"xqb");
+                                  changeCol("b");
+                                  break;
+ 
+                                case "tour":
+                                  addClassWithId(id,"xtb");
+                                  changeCol("b");
+                                  break;
+                                  
+                                case "fou":
+                                  addClassWithId(id,"xfb");
+                                  changeCol("b");
+                                  break;
+                                  
+                                case "cavalier":
+                                  addClassWithId(id,"xcb");
+                                  changeCol("b");
+                                  break;
+ 
+                                default:
+                                  addClassWithId(idchose,"xpb");
+                                  break;
+                            }
+                        });
+                        
+                              if(check("w")=="true") {
+                                if(checkmate("w")=="true") {
+                                  if(colorId(id)=="w") {
+                                    alert('Echec et mat ! Les blancs ont gagné !');
+                                  } else {
+                                    alert('Echec et mat ! Les noirs ont gagné !');
+                                  }
+                                  game="finie";
+                                } else {
+                                    alert("Echec !");
+                                }
+                              }
+                            last_class=[""];
+                            last_idchose=[""];
+                            last_idarr=[""];
+                            lastPiece=[""];
+                        
+                          break;
+                      
+                    
+                      case(dep(idchose,id)=="true" && (colorId(id)!=colorId(idchose)) && (checkdep(idchose,id,colorId(idchose))=="false")) :
+              
+                            switch(true) {
+                              case(idchose=="h5"):
+                                kwdep="true";
+                                break;
+                              case(idchose=="a5"):
+                                kbdep="true";
+                                break;
+                              case(idchose=="a1"):
+                                tbldep="true";
+                                break;
+                              case(idchose=="a8"):
+                                tbrdep="true";
+                                break;
+                              case(idchose=="h1"):
+                                twldep="true";
+                                break;
+                              case(idchose=="h8"):
+                                twrdep="true";
+                                break;
+                            }
+                            if(pieceWithId(id)==-1) {
+                              for(let i=1;i<dispo.length;i++) {
+                                rmClasseWithId(dispo[i]," disp");
+                              }
+                              last_class.push(classeId(id));
+                              addClassWithId(id,pieceWithId(idchose));
+                              rmPieceId(idchose);
+                              last_idchose.push(idchose);
+                              last_idarr.push(id);
+                              lastPiece.push(pieceWithId(id));
+                              if(check(last_col)=="true") {
+                                if(checkmate(last_col)=="true") {
+                                  if(colorId(id)=="w") {
+                                    alert('Echec et mat ! Les blancs ont gagné !');
+                                  } else {
+                                    alert('Echec et mat ! Les noirs ont gagné !');
+                                  }
+                                  game="finie";
+                                } else {
+                                    alert("Echec !");
+                                }
+                              }
+                              last_col=colorId(id);
+                            } else {
+                              for(let i=1;i<dispo.length;i++) {
+                                rmClasseWithId(dispo[i]," disp");
+                              }
+                              last_class.push(classeId(id));
+                              addPieceMangee(id,colorId(id));
+                              rmPieceId(id);
+                              addClassWithId(id,pieceWithId(idchose));
+                              rmPieceId(idchose);
+                              last_idchose.push(idchose);
+                              last_idarr.push(id);
+                              lastPiece.push(pieceWithId(id));
+                              if(check(last_col)=="true") {
+                                if(checkmate(last_col)=="true") {
+                                  if(colorId(id)=="w") {
+                                    alert('Echec et mat ! Les blancs ont gagné !');
+                                  } else {
+                                    alert('Echec et mat ! Les noirs ont gagné !');
+                                  }
+                                  game="finie";
+                                } else {
+                                    alert("Echec !");
+                                }
+                              }
+                              last_col=colorId(id);
+                            }
+                            break;
+                      }
+                  };
+                }
+                }
+              }
+          var btn1=document.getElementById('tp');
+          btn1.addEventListener('click', (event) => {
+            
+            var chose_ou_pas="";
+            var idvoulu;
+            for(let h=97;h<=104;h++) {
+                for(let b=1;b<=8;b++) {
+                  if(classe(String.fromCharCode(h),b).lastIndexOf("chosen")!=-1) {
+                      idvoulu=String.fromCharCode(h)+String(b);
+                      chose_ou_pas="true";
+                  }
+                }
+            }
+            if(chose_ou_pas!="true"){
+              turnpast();
+            } else {
+              rmClasseWithId(idvoulu," chosen");
+              for(let i=1;i<dispo.length;i++) {
+                rmClasseWithId(dispo[i]," disp");
+              }
+              turnpast();
+            }
+            
+
+            if(last_col=="w"){
+              last_col="b";
+            } else {
+              last_col="w";
+            }
+            
+          });
+          
+          var btn2=document.getElementById('replay');
+          btn2.addEventListener('click', (ev) => {
+            
+            var chose_ou_pas2="";
+            var idvoulu2;
+            for(let h=97;h<=104;h++) {
+                for(let b=1;b<=8;b++) {
+                  if(classe(String.fromCharCode(h),b).lastIndexOf("chosen")!=-1) {
+                      idvoulu2=String.fromCharCode(h)+String(b);
+                      chose_ou_pas2="true";
+                  }
+                }
+            }
+            if(chose_ou_pas2!="true"){
+              replay();
+            } else {
+              rmClasseWithId(idvoulu2," chosen");
+              for(let i=1;i<dispo.length;i++) {
+                rmClasseWithId(dispo[i]," disp");
+              }
+              replay();
+            }
+            
+            last_col="b";
+            game="";
+          });
+
+        </script>
+    
+    </body>
+    
+</html>

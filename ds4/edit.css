@@ -1,0 +1,63 @@
+.controller.edit {
+    background: url(https://delizo10.github.io/ds4/customds4.png);
+    background-size: cover;
+}
+
+.edit .stick {
+    position: absolute;
+    background: url(https://delizo10.github.io/ds4/svg/customsticks.svgz);
+}
+
+.edit .face {
+    position: absolute;
+    background: url(https://delizo10.github.io/ds4/svg/customarrows.svgz);
+}
+
+.edit .button {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: url(https://delizo10.github.io/ds4/svg/custombuttons.svgz);
+}
+
+.edit .a {
+    background-position: 0 0;
+    bottom: 0;
+    left: 58px;
+}
+
+.edit .b {
+    background-position: -57px 0;
+    top: 58px;
+    right: 0px;
+}
+
+.edit .x {
+    background-position: -113px 0;
+    top: 58px;
+}
+
+.edit .y {
+    background-position: 55px 0;
+    left: 58px;
+}
+
+.edit .trigger {
+    background: url(https://delizo10.github.io/ds4/svg/customtriggers.svgz);
+}
+
+.edit .bumper {
+    background: url(https://delizo10.github.io/ds4/svg/custombumpers.svgz);
+}
+
+.edit .back {
+    background: url(https://delizo10.github.io/ds4/svg/customsharbut.svgz);
+}
+
+.edit .touchpad.pressed {
+    background: url(https://delizo10.github.io/ds4/svg/customtouchpad.svgz);
+}
+
+.disconnected.edit {
+    background: url(https://delizo10.github.io/ds4/svg/diconnected.svgz);
+}
