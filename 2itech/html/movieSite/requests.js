@@ -8,14 +8,13 @@ var navBtns = topLeft.querySelectorAll('a');
 var div = document.getElementById('movieInfo');
 var ul = document.getElementById('movieAttr').querySelectorAll('li');
 var list = [];
-var ytKey = "";
+const ytKey = "AIzaSyA5opfRZomDdCdRNK-kK7GJtLDIODK1ueY";
 var trailerBtn = document.getElementById('trailerBtn');
 var trailerDiv = document.getElementById('trailerDiv');
 var attributsInfo = ["Director","Actors","Runtime","Plot","Released","Genre","Writer","BoxOffice","imdbRating"];
 for(let u=0;u<ul.length;u++) {
     list.push(ul[u].querySelector('span'));
 }
-console.log('modified2');
 var inputTitle = document.getElementById('srcInput2');
 
 /*navBtn.addEventListener('click', () => {
@@ -228,12 +227,12 @@ trailerBtn.addEventListener('click', (e) => {
                     },
                     function(err) { console.error("Execute error", err);});
     })*/
-    let url ='https://youtube.googleapis.com/youtube/v3/search?part=id&part=snippet&order=relevance&q='+encodeURIComponent(query)+'&type=video&videoDefinition='+paramDef+'&videoEmbeddable=true&key=AIzaSyD9iO-mpkHEXah9pcMM68FfhFz6qj-FxpI';
+    let url ='https://youtube.googleapis.com/youtube/v3/search?part=id&part=snippet&order=relevance&q='+encodeURIComponent(query)+'&type=video&videoDefinition='+paramDef+'&videoEmbeddable=true&key='+ytKey;
     axios.get(url)
     .then((response)=> {
         if(response.status==200) {
             let movieId = response.data.items[0].id.videoId;
-            let url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=player&id='+movieId+'&key=AIzaSyD9iO-mpkHEXah9pcMM68FfhFz6qj-FxpI';
+            let url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=player&id='+movieId+'&key='+ytKey;
             axios.get(url2)
             .then((rep2) => {
                 console.log(response);
