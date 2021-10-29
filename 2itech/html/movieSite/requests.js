@@ -15,7 +15,7 @@ var attributsInfo = ["Director","Actors","Runtime","Plot","Released","Genre","Wr
 for(let u=0;u<ul.length;u++) {
     list.push(ul[u].querySelector('span'));
 }
-console.log('modified');
+console.log('modified2');
 var inputTitle = document.getElementById('srcInput2');
 
 /*navBtn.addEventListener('click', () => {
