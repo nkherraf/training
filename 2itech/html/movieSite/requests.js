@@ -233,7 +233,7 @@ trailerBtn.addEventListener('click', (e) => {
     .then((response)=> {
         if(response.status==200) {
             let movieId = response.data.items[0].id.videoId;
-            let url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=player&id='+movieId+'&key='+ytKey;
+            let url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=player&id='+movieId+'&key=AIzaSyD9iO-mpkHEXah9pcMM68FfhFz6qj-FxpI';
             axios.get(url2)
             .then((rep2) => {
                 console.log(response);
