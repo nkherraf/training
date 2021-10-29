@@ -48,28 +48,34 @@
             <p></p>
         </div>
         <div class="bgdiv" id="movieInfo">
-            <h3 id="title">Title</h3>
+            <h3 id="title"></h3>
             <div id="movieInfo2">
                 <img src="#" alt="Movie Poster" id="poster">
                 <ul id="movieAttr">
-                    <li> <label for="">Director(s)</label> : <span></span></li>
+                    <li><label for="">Director(s)</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Actors</label> :<span></span></li>
+                    <li><label for="">Actors</label> :<span></span></li>
                     <hr>
-                    <li> <label for="">Runtime</label> : <span></span></li>
+                    <li><label for="">Runtime</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Synopsis</label> : <span></span></li>
+                    <li><label for="">Synopsis</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Released on</label> : <span></span></li>
+                    <li><label for="">Released on</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Genre</label> : <span></span></li>
+                    <li><label for="">Genre</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Writer(s)</label> : <span></span></li>
+                    <li id="ancre"><label for="">Writer(s)</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Box-Office</label> : <span></span></li>
+                    <li><label for="">Box-Office</label> : <span></span></li>
                     <hr>
-                    <li> <label for="">Ratings (Internet Movie DataBase)</label> : <span></span></li>
+                    <li><label for="">Ratings (Internet Movie DataBase)</label> : <span></span></li>
+                    <hr>
                 </ul>
+            </div>
+            <button id="trailerBtn"><a href="#ancre">Watch the trailer !</a></button>
+            <div id="trailerDiv"></div>
+            <div class="bgdiv" id="errorTrailer">
+                <p>Movie's trailer not found.</p>
             </div>
         </div>
         <div class="bgimg" id="description">
@@ -104,6 +110,7 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reprehenderit est eos quaerat, commodi, aliquam cum ducimus rerum et voluptatibus ipsam. Id dolorum aspernatur et asperiores aperiam ipsum molestiae quia!</p>
             </div>
         </div>-->
+        <script src="https://apis.google.com/js/client:plusone.js" type="application/javascript"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="requests.js"></script>
     </body>

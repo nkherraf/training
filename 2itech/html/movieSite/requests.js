@@ -8,13 +8,15 @@ var navBtns = topLeft.querySelectorAll('a');
 var div = document.getElementById('movieInfo');
 var ul = document.getElementById('movieAttr').querySelectorAll('li');
 var list = [];
+var ytKey = "";
+var trailerBtn = document.getElementById('trailerBtn');
+var trailerDiv = document.getElementById('trailerDiv');
+var attributsInfo = ["Director","Actors","Runtime","Plot","Released","Genre","Writer","BoxOffice","imdbRating"];
 for(let u=0;u<ul.length;u++) {
     list.push(ul[u].querySelector('span'));
 }
 
 var inputTitle = document.getElementById('srcInput2');
-
-
 
 /*navBtn.addEventListener('click', () => {
     if(!unfolded) {
@@ -39,7 +41,6 @@ function extractNumbers(str) {
 function getMovieData(title,year,id) {
     return new Promise((resolve,reject)=>{
         if(title!="") {
-            console.log(Number(year));
             if (year!="" && (Number(year)<1895 || Number(year)>2022)) {
                 alert('Error ! The year of released is not between 1895 and 2022 !');
                 return null;
@@ -51,7 +52,8 @@ function getMovieData(title,year,id) {
                     var paramS = '&t='+title;
                 }
                 //  var callB = '&callback=?';
-                var url = web+paramS+(year==""?"":'&y='+year);
+                let type='&type=movie';
+                var url = web+paramS+type+(year==""?"":'&y='+year);
                 axios.get(url).then(function (response) {
                     let data = response.data;
                     resolve(data);
@@ -69,10 +71,8 @@ function getMovieData(title,year,id) {
 
 
 
-function searchMovie(id) {
+function searchMovie(id,attr) {
     var movieTitle,movieYear,dataM;
-    var attr = ["Director","Actors","Runtime","Plot","Released","Genre","Writer","BoxOffice","imdbRating"];
-    
     if (id==="1") {
         movieTitle = document.getElementById('srcInput'+id).value;
         movieYear = "";
@@ -87,8 +87,18 @@ function searchMovie(id) {
         if (dataM.Response == "True") {
             divErr.style.display="none";
             let titleHtml = document.getElementById('title');
+            titleHtml.innerText="";
             let posterHtml = document.getElementById('poster');
-            titleHtml.innerText = dataM['Title'];
+            let movieTitle = document.createElement('span');
+            movieTitle.innerText=dataM['Title'];
+            movieTitle.setAttribute('id','movieTitle');
+            titleHtml.appendChild(movieTitle);
+            titleHtml.innerHTML += " (";
+            let movieYear = document.createElement('span');
+            movieYear.innerText=dataM['Year'];
+            movieYear.setAttribute('id','movieYear');
+            titleHtml.appendChild(movieYear);
+            titleHtml.innerHTML += ")";
             posterHtml.setAttribute('src',dataM['Poster']);
 
             for(let n=0;n<list.length;n++) {
@@ -97,6 +107,7 @@ function searchMovie(id) {
                 } else {
                     list[n].innerText = " "+dataM[attr[n]];
                 }
+                list[n].setAttribute('id',attr[n]);
             }
             div.style.display="flex";
         } else {
@@ -116,7 +127,6 @@ function removeAllChild(balise,tag) {
 }
 
 function changingOptions(cible) {
-    console.log('Event read');
     var text=cible.target.value;
     var li = document.getElementById('fiveMovie');
     if(text.length>1) {
@@ -132,10 +142,34 @@ function changingOptions(cible) {
                     li.appendChild(op);
                 }
             }
-            console.log('Options add');
         });
     }
 }
+
+function removeTrailer(div,btn) {
+    let child = div.querySelector('iframe');
+    div.removeChild(child);
+    btn.querySelector('a').innerText="Watch the trailer !";
+    setTimeout(() => {
+        btn.querySelector('a').setAttribute("href","#ancre");
+    }, 2000);
+}
+
+/* API GOOGLE TEST
+
+function loadClient() {
+    gapi.client.setApiKey(ytKey);
+    console.log("Key set !")
+    return new Promise((resolve,reject)=> {
+        console.log("Loading client...");
+        gapi.client.load("www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+        .then(function() { resolve("GAPI client loaded for API"); },
+              function(err) { console.error("Error loading GAPI client for API", err); });
+    });
+  }
+*/
+
+// EVENTS
 
 inputTitle.addEventListener('focus', (e) => {
     changingOptions(e);
@@ -150,8 +184,77 @@ inputTitle.addEventListener('keyup', (e) => {
 });
 */
 searchBtn2.addEventListener('click', () => {
-    searchMovie("2");
+    if(!(trailerDiv.querySelector('iframe')==null)) {
+        removeTrailer(trailerDiv,trailerBtn);
+    }
+    searchMovie("2",attributsInfo);
 });
+
+
+trailerBtn.addEventListener('click', (e) => {
+    if(!(trailerDiv.querySelector('iframe')==null)) {
+        removeTrailer(trailerDiv,trailerBtn);
+        return;
+    }
+    let paramDef;
+    let btn = e.target;
+    let title = document.getElementById('movieTitle').innerText;
+    let year = document.getElementById('movieYear').innerText;
+    let query = title+" "+year+" "+"trailer";
+    if(Number(year)<2000) {
+        paramDef= "standard";
+    } else {
+        paramDef= "high";
+    }
+    /*loadClient()
+    .then((msg)=> {
+        console.log(msg);
+        gapi.client.youtube.search.list({
+            "part": [
+              "id",
+              "snippet"
+            ],
+            "order": "viewCount",
+            "q": query,
+            "type": [
+              "video"
+            ],
+            "videoDefinition": "high",
+            "videoEmbeddable": "true"
+        })
+            .then(function(response) {
+                      // Handle the results here (response.result has the parsed body).
+                      console.log("Response", response);
+                    },
+                    function(err) { console.error("Execute error", err);});
+    })*/
+    let url ='https://youtube.googleapis.com/youtube/v3/search?part=id&part=snippet&order=relevance&q='+encodeURIComponent(query)+'&type=video&videoDefinition='+paramDef+'&videoEmbeddable=true&key='+ytKey;
+    axios.get(url)
+    .then((response)=> {
+        if(response.status==200) {
+            let movieId = response.data.items[0].id.videoId;
+            let url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=player&id='+movieId+'&key='+ytKey;
+            axios.get(url2)
+            .then((rep2) => {
+                if(rep2.status==200) {
+                    let trailHtml = rep2.data.items[0].player.embedHtml;
+                    trailerDiv.innerHTML=trailHtml;
+                    let ifr = trailerDiv.querySelector('iframe');
+                    let url3 = ifr.getAttribute('src');
+                    ifr.setAttribute('src','https:'+url3);
+                    ifr.removeAttribute('width');
+                    ifr.removeAttribute('height');
+                    trailerBtn.querySelector('a').innerText="Don't watch the trailer";
+                    trailerBtn.querySelector('a').setAttribute("href","#search");
+                } else {
+                    alert('We\'re having network issues. Please retry later');
+                }
+            });
+        } else {
+            alert('We\'re having network issues. Please retry later');
+        }
+    });
+})
 
 document.addEventListener('scroll', () => {
     let top=document.documentElement.scrollTop;
