@@ -1,0 +1,415 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Dosis:wght@600&family=Permanent+Marker&display=swap');
+
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body,html {
+    height: 100%;
+    margin:0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.bgimg {
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+
+.bgimg#home {
+    min-height: 100%;
+    background-image: url("moviesImages/img1.jpg");
+}
+
+.bgimg#description {
+    min-height: 70%;
+    background-image: url("moviesImages/img2.jpg");
+}
+
+.bgimg#purpose {
+    min-height: 70%;
+    background-image: url("moviesImages/img3.webp");
+}
+
+.bgimg#footer {
+    min-height: 70%;
+    background-image: url("moviesImages/img4.webp");
+}
+
+.bgdiv {
+    background-color: black;
+    color: white;
+}
+
+#search {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 40vh;
+}
+
+#srcInput2 {
+    font-size: x-large;
+}
+
+#yearInput2 {
+    height: 50%;
+    font-size: x-large;
+}
+
+#search button {
+    font-size: x-large;
+}
+
+#yearInput {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 20%;
+}
+
+#search p {
+    font-family: 'Balsamiq Sans',cursive;
+    font-size: 1.5em;
+}
+ 
+.text-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+}
+
+.text-div p {
+    text-align: justify;
+    width: 80%;
+    font-family: 'Balsamiq Sans',cursive;
+    font-size: 2em;
+    word-wrap: break-word;
+}
+
+.eclate {
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 0%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.eclate span {
+    opacity: 1;
+    background: rgba(0, 0, 0, 1);
+    padding: 10px;
+    color: white;
+    opacity: 1;
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing:2px;
+    font-size: 3em;
+}
+
+.reverse {
+    transform: scaleX(-1);
+}
+
+.arrows {
+    display: flex;
+    min-width: 100%;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 3%;
+    left: 0%;
+}
+
+#movieInfo {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#movieInfo h3 {
+    font-size: xx-large;
+}
+
+#movieInfo2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 70%;
+}
+
+#errorInfo {
+    display: none;
+    justify-content: center;
+}
+
+#errorInfo p {
+    text-align: center;
+    font-family:'Permanent Marker', cursive;
+    font-size: xx-large;
+}
+
+ul label {
+    color: rgb(255, 107, 107);
+    text-decoration: underline;
+    font-family:  'Balsamiq Sans',cursive;
+    font-weight: normal;
+}
+
+#topRight {
+    visibility: hidden;
+}
+
+@media all and (min-width: 1101px) {
+    
+    #togLab, #toggle
+    {
+        display: none;
+    }
+    
+    #mainNav {
+        font-family: 'Dosis', sans-serif;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 100%;
+    }
+    
+    #navBar {
+        padding: 20px;
+        /*border:groove white 2px;*/
+        position: fixed;
+        display: flex;
+        align-items: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 10vh;
+        background-color: rgba(0,0,0,.7);  
+        transition: top 0.5s;
+        z-index: 10;
+    }
+    
+    #navBar.hidden {
+        top: -10vh;
+    }
+    
+    .navBtn {
+        color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size:x-large;
+    }
+    
+    #topLeft {
+        display: flex;
+        min-width:50%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .arrows img {
+        height: 35vh;
+    }
+}
+
+@media all and (min-width: 851px) and (max-width: 1100px) {
+
+    #togLab, #toggle
+    {
+        display: none;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body,html {
+        height: 100%;
+        margin:0;
+        padding: 0;
+    }
+
+    #mainNav {
+        font-family: 'Dosis', sans-serif;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 100%;
+    }
+
+    #navBar {
+        padding: 20px;
+        display: flex;
+        /*border:groove white 2px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 10vh;
+        background-color: rgba(0,0,0,.7);  
+        transition: top 0.5s;
+        align-items: center;
+        z-index: 10;
+    }
+
+    #navBar.hidden {
+        top: -10vh;
+    }
+
+    .navBtn {
+        color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size:x-large;
+    }
+
+    #topLeft {
+        display: flex;
+        min-width:100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    #topRight {
+        display: none;
+    }
+
+    .arrows img {
+        height: 20vh;
+    }
+}
+
+@media all and (max-width: 850px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body,html {
+        height: 100%;
+        margin:0;
+        padding: 0;
+    }
+
+    #togLab 
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        height: 5vh;
+        font-size: xx-large;
+        color: white;
+        cursor: pointer;
+        user-select: none
+    }
+
+    #mainNav {
+        font-family: 'Dosis', sans-serif;
+    }
+
+    #navBar {
+        padding: 10px;
+        /*border:groove white 2px;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,.7);  
+        transition: top 0.5s;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .navBtn {
+        color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size:medium;
+    }
+
+    #topLeft {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        height: 20vh;
+    }
+
+    #toggle:checked + #mainNav #topLeft{
+        display: flex;
+    }
+
+    #topRight, #toggle {
+        display: none;
+    }
+
+    .arrows img {
+        height: 20vh;
+    }
+
+    #movieInfo2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 70%;
+    }
+
+    #srcInput2 {
+        font-size: medium;
+        width: 60%;
+    }
+
+    #yearInput {
+        min-width: 50%;
+    }
+
+    #yearInput2 {
+        font-size: medium;
+    }
+
+    #search p {
+        font-size: 1.15em;
+    }
+
+    #srcBtn2 {
+        font-size: medium;
+    }
+
+    .eclate {
+        top: 30%;
+    }
+
+    .text-div p {
+        font-size: 1.4em;
+    }
+
+    .eclate span {
+        font-size: 2.4em;
+    }
+
+}
+

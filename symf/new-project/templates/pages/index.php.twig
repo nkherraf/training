@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mon agence{% endblock %}
+{% block body %}
+    <div class="jumbotron text-center">
+        <div class="container">
+        <h1>Agence Lorem ipsum</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum, alias aspernatur assumenda perferendis beatae error aut repudiandae debitis autem, nihil consequatur, 
+            accusamus nisi sequi aperiam commodi provident fugiat ipsam. Nihil.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Les derniers biens</h2>
+        <div class="row flex">
+        {% for last_prop in properties %}
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="/properties/{{last_prop.id}}">{{last_prop.title}}</a>
+                        </h5>
+                        <p class="card-text">{{ last_prop.city }} ({{last_prop.zipcode}})</p>
+                        <div class="text-primary">{{last_prop.formatedPrice}} €</div>
+                    </div>
+                </div>
+            </div>
+                    
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

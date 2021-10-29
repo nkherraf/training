@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+{% block title %}Le bien n°{{theproperty.id}}{% endblock %}
+{% block body %}
+<div class="jumbotron">
+    <div class="contain">
+        <div class="row">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4">
+            <h1>{{theproperty.title}}</h1>
+            <h2>{{theproperty.rooms}} pièces - {{theproperty.surface}} m²</h2>
+            <div class="text-primary" style="font-weight:bold;">{{theproperty.formatedPrice}}</div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="container mt-4">
+    
+    <p>{{theproperty.description | nl2br}}</p>
+
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <tr>
+                    <td>Surface habitable</td>
+                    <td>{{theproperty.surface}} m²</td>
+                </tr>
+                <tr>
+                    <td>Pièces</td>
+                    <td>{{theproperty.rooms}}</td>
+                </tr>
+                <tr>
+                    <td>Chambres</td>
+                    <td>{{theproperty.bedrooms}}</td>
+                </tr>
+                <tr>
+                    <td>Etage</td>
+                    <td>{{theproperty.floor}}</td>
+                </tr>
+                <tr>
+                    <td>Type de chauffage</td>
+                    <td>{{theproperty.heatType}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <title>Welcome Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <nav id="navBar" class="hidden">
+            <label for="toggle" id="togLab">☰</label><br>
+            <input type="checkbox" id="toggle">
+            <div id="mainNav">
+                <div id="topLeft">
+                    <a href="#home"><span class="navBtn">Home</span></a>
+                    <a href="#search"><span class="navBtn">Search a movie</span></a>
+                    <a href="#description"><span class="navBtn">What does this website ?</span></a>
+                    <a href="#purpose"><span class="navBtn">What is its purpose ?</span></a>
+                </div>
+                <div id="topRight">
+                    <input type="text" id="srcInput1" placeholder="Search for a movie title">
+                    <button id="srcBtn1">Let's go...</button>
+                </div>                
+            </div>
+        </nav>
+        <div class="bgimg" id="home">
+            <div class="eclate">
+                <span>Welcome to the best place for moviegoers !</span>
+            </div>
+            <div class="arrows">
+                <img class="reverse" src="fleche.png" alt="Flèche pointant en bas à droite du milieu">
+                <img src="fleche.png" alt="Flèche pointant en bas à droite du milieu">
+            </div>
+        </div>
+        <div class="bgdiv">
+            <div id="search">
+                <h1 style="text-align: center;">Looking for the movie named...</h1>
+                <!--<input type="text" id="srcInput2" minlength="2" size="35" placeholder="Movie Title">-->
+                <input type="text" id="srcInput2" list="fiveMovie" minlength="2" size="35" placeholder="Movie Title" autocomplete="off">
+                <datalist id="fiveMovie"></datalist>
+                <div id="yearInput">
+                    <p>Year :</p>
+                    <input type="number" id="yearInput2" minlength="4" maxlength="4" size="13" min="1895" max="2022" placeholder="1895 to 2022">
+                </div>
+                <button id="srcBtn2" >Let's see the informations !</button>
+            </div>
+        </div>
+        <div class="bgdiv" id="errorInfo">
+            <p></p>
+        </div>
+        <div class="bgdiv" id="movieInfo">
+            <h3 id="title">Title</h3>
+            <div id="movieInfo2">
+                <img src="#" alt="Movie Poster" id="poster">
+                <ul id="movieAttr">
+                    <li> <label for="">Director(s)</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Actors</label> :<span></span></li>
+                    <hr>
+                    <li> <label for="">Runtime</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Synopsis</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Released on</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Genre</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Writer(s)</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Box-Office</label> : <span></span></li>
+                    <hr>
+                    <li> <label for="">Ratings (Internet Movie DataBase)</label> : <span></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bgimg" id="description">
+            <div class="eclate">
+                <span>What does this website ?</span>
+            </div>
+        </div>
+        <div class="bgdiv">
+            <div class="text-div">
+                <p>This website allows to anyone to get access to a gigantic movie database. This database lists the caracteristics of all movies ever created. </p>
+                <p>To get those informations, you just have to write in the search bar above, the title of the movie you're looking for. For more accuracy, please don't forget to use the year of creation/release.</p>
+            </div>
+        </div>
+        <div class="bgimg" id="purpose">
+            <div class="eclate">
+                <span>What is its purpose ?</span>
+            </div>
+        </div>
+        <div class="bgdiv">
+            <div class="text-div">
+                <p>The idea of creating this website come from a training project with the purpose to improve web programming skills, such as the code languages HTML, JavaScript or CSS. </p>
+                <p>Now, this website just helps strangers requesting for some informations about their favourite movie.</p>
+            </div>
+        </div>
+        <div class="bgimg" id="footer">
+            <div class="eclate">
+                <span>More about later...</span>
+            </div>
+        </div>
+        <!--<div class="bgdiv">
+            <div class="text-div">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae reprehenderit est eos quaerat, commodi, aliquam cum ducimus rerum et voluptatibus ipsam. Id dolorum aspernatur et asperiores aperiam ipsum molestiae quia!</p>
+            </div>
+        </div>-->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="requests.js"></script>
+    </body>
+</html>
