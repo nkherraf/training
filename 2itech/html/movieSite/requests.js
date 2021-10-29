@@ -228,7 +228,7 @@ trailerBtn.addEventListener('click', (e) => {
                     },
                     function(err) { console.error("Execute error", err);});
     })*/
-    let url ='https://youtube.googleapis.com/youtube/v3/search?part=id&part=snippet&order=relevance&q='+encodeURIComponent(query)+'&type=video&videoDefinition='+paramDef+'&videoEmbeddable=true&key='+ytKey+'AIzaSyD9iO-mpkHEXah9pcMM68FfhFz6qj-FxpI';
+    let url ='https://youtube.googleapis.com/youtube/v3/search?part=id&part=snippet&order=relevance&q='+encodeURIComponent(query)+'&type=video&videoDefinition='+paramDef+'&videoEmbeddable=true&key=AIzaSyD9iO-mpkHEXah9pcMM68FfhFz6qj-FxpI';
     axios.get(url)
     .then((response)=> {
         if(response.status==200) {
@@ -236,6 +236,7 @@ trailerBtn.addEventListener('click', (e) => {
             let url2 = 'https://youtube.googleapis.com/youtube/v3/videos?part=player&id='+movieId+'&key='+ytKey;
             axios.get(url2)
             .then((rep2) => {
+                console.log(response);
                 if(rep2.status==200) {
                     let trailHtml = rep2.data.items[0].player.embedHtml;
                     trailerDiv.innerHTML=trailHtml;
