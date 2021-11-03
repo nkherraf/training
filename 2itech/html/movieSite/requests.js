@@ -8,7 +8,10 @@ var navBtns = topLeft.querySelectorAll('a');
 var div = document.getElementById('movieInfo');
 var ul = document.getElementById('movieAttr').querySelectorAll('li');
 var list = [];
-const ytKey = "AIzaSyA5opfRZomDdCdRNK-kK7GJtLDIODK1ueY";
+const ytKey = decodeS('N\x03r\x1CgXs\x9D^~\x03¢í\x02\n' +
+'9Ħ\fg\x11KA\x1BC\x90·\x06+9ì:Ü\x1C\x02\x0Eæ|W;ÐL1×\x0Bej<&J\x94N\x83=\t*Å=¢\n' +
+"J5Jk\x961\x1AD'\x1C\x113ýR8W-\x04tl(A\x1C\x10²Ĵ\x0E\x1A\x86\x06X\x1B\n" +
+'§\x8F4\x18\x94=\x1C:\x1Fse\x06v=O\x07ĸ\x01&\x19ÀV\x90\x12i\t');
 var trailerBtn = document.getElementById('trailerBtn');
 var trailerDiv = document.getElementById('trailerDiv');
 var attributsInfo = ["Director","Actors","Runtime","Plot","Released","Genre","Writer","BoxOffice","imdbRating"];
@@ -151,7 +154,7 @@ function removeTrailer(div,btn) {
     btn.querySelector('a').innerText="Watch the trailer !";
     setTimeout(() => {
         btn.querySelector('a').setAttribute("href","#ancre");
-    }, 2000);
+    }, 1000);
 }
 
 /* API GOOGLE TEST
