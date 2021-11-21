@@ -1,0 +1,39 @@
+<h2>Formulaire :</h2>
+<form #myF="ngForm">
+    <fieldset>
+        <legend>Stagiaire</legend>
+        <div>
+            <label for="id">Numéro :</label>
+            <input type="number" name="id" id="id" [(ngModel)]="personne.id">
+        </div>
+        <div>
+            <label for="fN">Prénom :</label>
+            <input type="text" name="fN" id="fN" [(ngModel)]="personne.fName" required #fName=ngModel>
+            <ng-container *ngIf="firstInstance">
+                <span [hidden]="fName.valid || fName.pristine">
+                    Le prénom est obligatoire (entre 0 et 256 caractères).
+                </span>
+            </ng-container>
+        </div>
+        <div>
+            <label for="lN">Nom :</label>
+            <input type="text" name="lN" id="lN" [(ngModel)]="personne.lName" required #lName=ngModel>
+            <ng-container *ngIf="firstInstance">
+                <span [hidden]="lName.valid || lName.pristine">
+                    Le nom est obligatoire (entre 0 et 256 caractères).
+                </span>
+            </ng-container>
+        </div>
+    </fieldset>
+    <button (click)="addPerson(myF)" [disabled]="!myF.valid">Ajouter</button>
+</form>
+<!-- <button (click)="displayList()">Liste des personnes</button> -->
+<ng-container *ngIf="listDisplayed">
+    <div>
+        <ul *ngFor="let pers of personnes" style="display: inline-block;">
+            <li>Numéro : {{pers.id}}</li>
+            <li>Prénom : {{pers.fName}}</li>
+            <li>Nom : {{pers.lName}} </li>
+        </ul>
+    </div>
+</ng-container>

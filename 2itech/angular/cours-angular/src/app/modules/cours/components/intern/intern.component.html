@@ -1,0 +1,12 @@
+<div>
+    <ng-container *ngIf="fName;else list">
+        <p>Tu as les remerciements de {{fName}} {{lName}} !</p>
+        <ng-container *ngIf="lName.toLowerCase()=='messi'">
+            <p>Regarde, il est là :</p>
+            <img src="https://le10static.com/img/cache/article/576x324/0000/0019/195702.jpeg" alt="Leo Messi">
+        </ng-container>
+    </ng-container>
+    <ng-template #list>
+        <p>Tu n'as pas sélectionné de stagiaire !</p>
+    </ng-template>
+</div>

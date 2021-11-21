@@ -1,0 +1,24 @@
+<form #myF="ngForm">
+    <fieldset>
+        <legend>Formulaire d'ajout de personne</legend>
+        <div>
+            <label for="fN">Prénom :</label>
+            <input type="text" name="fN" id="fN" [(ngModel)]="pers.fName" required #fName=ngModel>
+            <ng-container>
+                <span [hidden]="fName.valid || fName.pristine">
+                    Le prénom est obligatoire (entre 0 et 256 caractères).
+                </span>
+            </ng-container>
+        </div>
+        <div>
+            <label for="lN">Nom :</label>
+            <input type="text" name="lN" id="lN" [(ngModel)]="pers.lName" required #lName=ngModel>
+            <ng-container>
+                <span [hidden]="lName.valid || lName.pristine">
+                    Le nom est obligatoire (entre 0 et 256 caractères).
+                </span>
+            </ng-container>
+        </div>
+    </fieldset>
+    <button (click)="updatePers()" [disabled]="!myF.valid">Enregistrer</button>
+</form>

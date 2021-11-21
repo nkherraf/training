@@ -1,0 +1,97 @@
+<h2>Home :</h2>
+<p>{{ "bonjour" | getChar:5}}</p>
+<p>Tableau avec des nombres pairs</p>
+<ul>
+  <li *ngFor="let el of tab | evenValue">
+    {{el}}
+  </li>
+</ul>
+<p><a [routerLink]="['cours/intern/',fN,lN]" routerLinkActive="router-link-active" >Page de Leo Messi</a></p>
+<!--<p> {{stagiaire | json }} </p>-->
+<!-- <p>Numéro : {{stagiaire.num}}, {{stagiaire.nom}}, {{stagiaire.prenom ?? "Prénom inconnu"}} </p>
+<p> {{sayHello()}} </p> -->
+<!-- <ul>
+  <li> {{tab[0]}} </li>
+  <li>{{tab[1]}}</li>
+  <li>{{tab[2]}}</li>
+  <li>{{tab[3]}}</li>
+</ul> -->
+<button (pointerover)="changeBtnContent()" (pointerout)="changeBtnContentV2()" [innerText]="btnTxt"></button>
+
+<ul>
+  <li *ngFor="let elt of tab; let i = index; let pair = even;let premier = first">
+    {{i}}:{{elt}} : {{pair}} : {{premier}}
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let elt of personnes">
+    {{elt.prenom}} {{elt.nom}}
+  </li>
+</ul>
+<br>
+<ul>
+  <li *ngFor="let el of stagiaire | keyvalue">
+    {{el.value}}
+  </li>
+</ul>
+<p *ngIf="tab[0] > 0; else negatif">
+  {{tab[0]}} est positif
+</p>
+<ng-template #negatif>
+  <p>{{tab[0]}} est négatif</p>
+</ng-template>
+
+<ul>
+  <li *ngFor="let el of tab">
+    <ng-container *ngIf="el > 0; else negatif">
+      {{el}} est positif
+    </ng-container>
+    <ng-template #negatif>
+      {{el}} est négatif
+    </ng-template>
+  </li>
+</ul>
+<!-- 
+<ul>
+  <ng-container *ngFor="let item of moy">
+    <ng-container [ngSwitch]="true">
+      <li *ngSwitchCase="item<10">
+        {{item}} est mauvais.
+      </li>
+      <li *ngSwitchCase="item < 13 && item>10">
+        {{ item }} est passable.
+      </li>
+      <li *ngSwitchCase="item < 16 && item>13">
+        {{ item }} est bien.
+      </li>
+      <li *ngSwitchDefault>
+        {{ item }} est excellent.
+      </li>
+    </ng-container>
+  </ng-container>
+</ul> -->
+
+
+<ul>
+  <ng-container *ngFor="let item of tab">
+    <li [ngClass]="item%2==0?'green':'red'">
+      {{ item }} est
+      <ng-container *ngIf="item%2 == 0; else neg">
+        pair.
+      </ng-container>
+      <ng-template #neg>
+        impair.
+      </ng-template>
+    </li>
+  </ng-container>
+</ul>
+
+<ul>
+  <ng-container *ngFor="let item of personnes; let pair=odd">
+    <li [ngClass]="pair?'blue':'red'">
+      {{item.prenom}} {{ item.nom}}
+    </li>
+  </ng-container>
+</ul>
+

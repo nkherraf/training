@@ -1,0 +1,27 @@
+<h2>Calcul :</h2>
+<ng-container *ngIf="result;else error">
+    <p>Le calcul est le suivant : {{val1}} {{calcul}} {{val2}} = {{result}}</p>
+    <button routerLink="/exos/calcul">Nouveau calcul</button>
+</ng-container>
+<ng-template #error>
+    <ng-container *ngIf="err;else base">
+        <p>{{err}}</p>
+    </ng-container>
+    <ng-template #base>
+        <form (ngSubmit)="onSubmit(f)" #f='ngForm'>
+            <label for="num1">Valeur 1 : </label>
+            <input type="number" id="num1" name="val1" ngModel>
+            <label for="op">Opérateur</label>
+            <select name="op" id="op" ngModel>
+                <option value="plus">+</option>
+                <option value="moins">-</option>
+                <option value="div">/</option>
+                <option value="fois">*</option>
+            </select>
+            <label for="num2">Valeur 2 : </label>
+            <input type="number" id="num2" name="val2" ngModel>
+            <input type="submit">
+        </form>
+        
+    </ng-template>
+</ng-template>

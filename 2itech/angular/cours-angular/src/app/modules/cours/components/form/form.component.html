@@ -1,0 +1,33 @@
+<h2>Form Reactive :</h2>
+<form [formGroup]="personneForm">
+    <!-- <label>Numéro</label>
+    <input type="number" formControlName=id> -->
+    <label>Prénom</label>
+    <input type="text" formControlName=fName>
+    <label>Nom</label>
+    <input type="text" formControlName=lName>
+
+    <div formGroupName=adress>
+        <label>Rue :</label>
+        <input type="text" formControlName=street>
+        <label>Ville :</label>
+        <input type="text" formControlName=city>
+        <label>Code Postal :</label>
+        <input type="text" formControlName=zipCode maxlength="6">
+    </div>
+    <button (click)="addPerson()" [disabled]="!personneForm.valid">Ajouter</button>
+</form>
+
+<ng-container *ngIf="listDisplayed">
+    <div>
+        <ul *ngFor="let pers of data" style="display: inline-block;">
+            <li>{{pers.fName}}</li>
+            <li>{{pers.lName}}</li>
+            <li>Adresse : 
+                <ul *ngFor="let el of pers.adress | keyvalue">
+                    <li>{{el.value}}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</ng-container>

@@ -1,0 +1,31 @@
+<h2>Afficher une valeur du tableau :</h2>
+
+<ng-container *ngIf="index===undefined;else showTable">
+    <form (ngSubmit)="onSubmit(f)" #f='ngForm'>
+        <label for="num1">Indice de la valeur à afficher : </label>
+        <input type="number" id="num1" name="val1" ngModel>
+        <input type="submit">
+    </form>
+</ng-container>
+<ng-template #showTable>
+    <p>L'élément d'indice {{index}} est {{val}}</p>
+    <!-- <div>
+    <a [routerLink]="[path,index==0?numbers.length-1:index-1]" (click)="prevVal()">
+        Previous
+    </a>
+    <br>
+    <a [routerLink]="[path,index==numbers.length-1?0:index+1]">
+        Next
+    </a>
+</div> -->
+
+    <div>
+        <button (click)="prevVal()">
+            Previous
+        </button>
+        <br>
+        <button (click)="nextVal()">
+            Next
+        </button>
+    </div>
+</ng-template>

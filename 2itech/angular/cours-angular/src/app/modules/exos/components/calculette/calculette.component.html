@@ -1,0 +1,24 @@
+<h2>Calculette :</h2>
+
+<form (ngSubmit)="onSubmit(f)" #f='ngForm'>
+    <label for="num1">Valeur 1 : </label>
+    <input type="number" id="num1" name="val1" ngModel>
+    <label for="num2">Valeur 2 : </label>
+    <input type="number" id="num2" name="val2" ngModel>
+    <br>
+    <label for="op">Opérateur pour le calcul</label>
+    <button (click)="opTouched('+')">+</button>
+    <button (click)="opTouched('-')">-</button>
+    <button (click)="opTouched('/')">/</button>
+    <button (click)="opTouched('*')">*</button>
+    <br>
+</form>
+
+<ng-container *ngIf="result!=undefined;else error">
+    <p>Le calcul est le suivant : {{val1}} {{op}} {{val2}} = {{result}}</p>
+</ng-container>
+<ng-template #error>
+    <ng-container *ngIf="error">
+        <p>{{err}}</p>
+    </ng-container>
+</ng-template>
